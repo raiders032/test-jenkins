@@ -1,5 +1,3 @@
-import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
-
 plugins {
     id 'base'
     id 'com.palantir.docker' version '0.31.0'
@@ -17,12 +15,11 @@ docker {
 Process process
 process = "stat -c %g /var/run/docker.sock".execute()
 
-String extraPrefix = DefaultNativePlatform.getCurrentOperatingSystem().isWindows() ? '/' : ''
 dockerRun {
     name "${project.name}"
     image "${project.name}:${project.version}"
     ports '8080:8080'
     clean true
     daemonize false
-    arguments '-v', "$extraPrefix/var/run/docker.sock:/var/run/docker.sock", '--group-add', "jenkins"
+    arguments '-v', "/var/run/docker.sock:/var/run/docker.sock", '--group-add', "jenkins"
 }
