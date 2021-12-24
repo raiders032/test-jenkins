@@ -20,7 +20,7 @@ dockerRun {
     image "${project.name}:${project.version}"
     ports '8080:8080'
     clean true
-    daemonize false
+    daemonize true
     env 'JENKINS_ADMIN_ID' : 'admin', 'JENKINS_ADMIN_PASSWORD' : '1234'
-    arguments '-v', "/var/run/docker.sock:/var/run/docker.sock", '--group-add', "jenkins"
+    arguments '-v', "/var/run/docker.sock:/var/run/docker.sock", '--group-add', 'jenkins'
 }
