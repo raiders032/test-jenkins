@@ -2,9 +2,8 @@ FROM jenkins/jenkins:2.303.3-jdk11
 
 # 설치 위자드 비활성화
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
-
 # JCasC가 읽을 설정 파일 위치 지정하는 환경 변수
-ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc.yml
+ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc.yaml
 
 # Jenkins Docker image에 Docker 설치
 USER root
@@ -17,7 +16,7 @@ COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
 # 앞에 작성한 설정 파일 casc.yaml 복사
-COPY casc.yml /var/jenkins_home/casc.yml
+COPY casc.yaml /var/jenkins_home/casc.yaml
 
-# 젠킨스 기본 잡 파일 복사
-COPY seedJob.xml /usr/share/jenkins/ref/jobs/seed-job/config.xml
+# 젠킨스 기본 시드잡 설정 파일 복사
+COPY defaultJob.xml /usr/share/jenkins/ref/jobs/default-job/config.xml
